@@ -50,6 +50,26 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
 
+	var manifest = [{id:"test", src:"b01.mp3"}];
+	var preload = new createjs.LoadQueue(false, "assets/");
+	preload.installPlugin(createjs.Sound);
+	preload.on("complete", app);
+	preload.loadManifest(manifest);
+
+	function app(e) {
+		var but = new zim.Button();
+		zim.centerReg(but, stage);
+		but.on("click", function(){
+			createjs.Sound.play("test");
+			zog("test2");
+		});
+		stage.update();
+	};
+
+
+
+	/*
+
 	zim.OPTIMIZE = true;
 	zim.Ticker.update = true; // will update stage for anything in ticker queue
 
@@ -336,6 +356,7 @@ frame.on("ready", function() {
 		resize(); // want to resize after loading
 
 	} // end of app
+	*/
 
 }); // end of ready
 </script>
