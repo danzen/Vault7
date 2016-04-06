@@ -21,7 +21,7 @@ var panels = function(panels) {
             cols: 5,
             rows: 4,
             spacing: 15,
-            color:frame.dark,
+            color:frame.blue,
             offColor:frame.dark,
             rollColor:frame.pink,
             keys: keys

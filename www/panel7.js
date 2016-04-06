@@ -9,8 +9,6 @@ var panels = function(panels) {
         backing.alpha = .8;
         panel.addChild(backing);
 
-        frame.loadAssets("assets/end.png"); // for next panel
-
 
         //////////////////  CODE  ///////////////////////
 

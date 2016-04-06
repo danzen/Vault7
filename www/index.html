@@ -24,7 +24,7 @@
 
 <style>
 	body {margin:0px; padding:0px; background-color:#000;}
-	#myCanvas {position:absolute; background-color:#000;}
+	#myCanvas {position:absolute; background-color:#fff;}
 </style>
 
 <script>
@@ -48,23 +48,18 @@ frame.on("ready", function() {
 	zim.OPTIMIZE = true;
 	zim.Ticker.update = true; // will update stage for anything in ticker queue
 
-	frame.loadAssets(["back.jpg"], "assets/");
+	frame.loadAssets(["back.jpg", "b01.mp3", "b02.mp3", "b03.mp3", "b04.mp3", "b05.mp3", "b06.mp3", "b07.mp3", "end.png"], "assets/");
 	frame.completeEvent = frame.on("complete", app);
 
-	var waiter = new zim.Waiter(stage, null, "#333", "#999", 0);
-	waiter.show();
-
 	function app() {
-
-		waiter.hide();
 
 		var image = frame.asset("back.jpg");
 		image.alpha = .4;
 		zim.scaleTo(image, stage, 100, 100, "biggest");
 		stage.addChild(image);
 
-		var safe = new createjs.Shape();
-		stage.addChildAt(safe, 0);
+		//var safe = new createjs.Shape();
+		//stage.addChildAt(safe, 0);
 
 		var middle = new createjs.Container();
 		stage.addChild(middle);
@@ -170,10 +165,10 @@ frame.on("ready", function() {
 			zim.scale(hintBut, ((frame.orientation=="vertical")?stageW:stageH)/hintBut.width*.2);
 			zim.scale(hintText, ((frame.orientation=="vertical")?stageW:stageH)/hintText.originalWidth*.6);
 
-			var g = safe.graphics;
-			var corner = (frame.orientation == "vertical") ? stageH*.1 : stageW*.1;
-			g.c().f("#fff").rr(0,0,stageW,stageH,corner);
-			image.mask = safe;
+			//var g = safe.graphics;
+			//var corner = (frame.orientation == "vertical") ? stageH*.1 : stageW*.1;
+			//g.c().f("#fff").rr(0,0,stageW,stageH,corner);
+			//image.mask = safe;
 			zim.fit(middle, 0, 0, stageW, stageH);
 			var margin = Math.min(stageW, stageH)*.05;
 			if (frame.orientation == "vertical") {

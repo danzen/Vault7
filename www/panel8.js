@@ -9,23 +9,15 @@ var panels = function(panels) {
         backing.alpha = .8;
         panel.addChild(backing);
 
-        //frame.off("complete", frame.completeEvent);
-        //frame.on("complete", showMessage);
-        
-        frame.loadAssets("assets/end.png");
-
-        //function showMessage() {
 
         //////////////////  MESSAGE  ///////////////////////
 
+        frame.loadAssets("end.png");
         var message = frame.asset("assets/end.png");
         zim.scaleTo(message, panel, 100, 100);
         panel.addChild(message);
         panel.cursor = "pointer";
-        panel.on("click", function(){zgo("http://zimjs.com/code/", "_blank")});
-
-        //}
-
+        panel.on("click", function(){zgo("http://zimjs.com/code/", "_system")});
 
         return panel;
     }
