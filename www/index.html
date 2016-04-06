@@ -11,6 +11,7 @@
 <script>zon = true; // true for comments from zim code</script>
 <script src="libraries/zim_2.6.1.js"></script>
 <script src="libraries/createjs-2015.11.26.min.js"></script>
+<script src="libraries/CordovaAudioPlugin.js"></script>
 <!-- or can go to zimjs.com and createjs.com for individual modules -->
 
 <script src="panel1.js"></script>
@@ -22,12 +23,16 @@
 <script src="panel7.js"></script>
 <script src="panel8.js"></script>
 
+
 <style>
 	body {margin:0px; padding:0px; background-color:#000;}
 	#myCanvas {position:absolute; background-color:#fff;}
 </style>
 
 <script>
+
+createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
+
 
 // SCALING OPTIONS
 // "none"		sets canvas and stage to dimensions and does not scale if window changes
