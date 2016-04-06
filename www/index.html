@@ -59,7 +59,7 @@ frame.on("ready", function() {
 
 	var manifest = [{id:"test", src:"b01.mp3"}];
 	var preload = new createjs.LoadQueue(false, getPhoneGapPath() + "/assets/");
-	// preload.installPlugin(createjs.Sound);
+	preload.installPlugin(createjs.Sound);
 	preload.on("complete", app);
 	preload.loadManifest(manifest);
 
@@ -68,7 +68,6 @@ frame.on("ready", function() {
 		zim.centerReg(but, stage);
 		but.on("click", function(){
 			createjs.Sound.play("test");
-			zog("test2");
 		});
 		stage.update();
 	};
