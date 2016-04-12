@@ -50,6 +50,21 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
 
+	var t = "nope";
+	if (typeof cordova !== 'undefined') {
+		t = "cordova";
+		if (cordova.file) {
+			t = "cordova.file";
+			if (cordova.file.applicationDirectory) {
+				t = cordova.file.applicationDirectory;
+			}
+		}
+	}
+	var label = new zim.Label(t, 20);
+	label.x = stageW - label.width;
+	label.y = stageH/2;
+	stage.addChild(label);
+	stage.update();
 
 	function getPhoneGapPath() {
 	   var path = window.location.pathname;
@@ -58,7 +73,7 @@ frame.on("ready", function() {
 	   // android add 'file://'
 	};
 
-
+/*
 	var manifest = [{id:"test", src:"b01.mp3"}];
 	var preload = new createjs.LoadQueue(true, cordova.file.applicationDirectory + "www/assets/");
 	preload.installPlugin(createjs.Sound);
@@ -85,8 +100,7 @@ frame.on("ready", function() {
 		});
 		stage.update();
 	};
-
-
+	*/
 
 	/*
 
