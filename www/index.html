@@ -60,7 +60,7 @@ frame.on("ready", function() {
 
 
 	var manifest = [{id:"test", src:"b01.mp3"}];
-	var preload = new createjs.LoadQueue(true, getPhoneGapPath() + "/assets/");
+	var preload = new createjs.LoadQueue(true, "www/assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("error", function(e) {
