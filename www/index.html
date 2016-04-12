@@ -60,11 +60,11 @@ frame.on("ready", function() {
 
 	// var manifest = [{id:"test", src:"b01.mp3"}];
 	var manifest = [{id:"test", src:"back.jpg"}];
-	var preload = new createjs.LoadQueue(true, "assets/");
+	var preload = new createjs.LoadQueue(true, getPhoneGapPath()+"assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("error", function(e) {
-		var label = new zim.Label(e.title, 20);
+		var label = new zim.Label("---" + e.title, 20);
 		label.x = stageW - label.width;
 		label.y = stageH/2;
 		stage.addChild(label);
