@@ -58,7 +58,8 @@ frame.on("ready", function() {
 	};
 
 
-	var manifest = [{id:"test", src:"b01.mp3"}];
+	// var manifest = [{id:"test", src:"b01.mp3"}];
+	var manifest = [{id:"test", src:"back.jpg"}];
 	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
@@ -74,11 +75,13 @@ frame.on("ready", function() {
 	preload.loadManifest(manifest);
 
 	function app(e) {
+		var pic = new createjs.Bitmap(preload.getResult("test"));
+		zim.centerReg(pic, stage);
 		var but = new zim.Button();
 		zim.centerReg(but, stage);
 		but.y += 200;
 		but.on("click", function(){
-			createjs.Sound.play("test");
+			// createjs.Sound.play("test");
 			but.x+=5;
 			stage.update();
 		});
