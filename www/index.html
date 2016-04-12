@@ -58,11 +58,12 @@ frame.on("ready", function() {
 	   // android add 'file://'
 	};
 
-	var manifest = [{src:"assets/back.jpg", id:"scratch"}];
-	var preload = new createjs.LoadQueue(false);
+	var manifest = [{src:"back.jpg", id:"scratch"}];
+	var preload = new createjs.LoadQueue(false, "assets/");
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("scratch"));
 		stage.addChild(underlay);
+		underlay.x = 100;
 		stage.update();
 	});
 	preload.on("error", function(e) {
@@ -76,7 +77,7 @@ frame.on("ready", function() {
 
 	/*
 	// var manifest = [{id:"test", src:"b01.mp3"}];
-	var manifest = [{src:"assets/back.jpg", id:"test"}];
+	var manifest = [{src:"back.jpg", id:"test"}];
 	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
