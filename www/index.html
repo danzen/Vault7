@@ -60,15 +60,16 @@ frame.on("ready", function() {
 	*/
 
 	var manifest = [{id:"test", src:"b01.mp3"}];
-	var preload = new createjs.LoadQueue(false, "/assets/");
+	var preload = new createjs.LoadQueue(true, "/assets/");
 	preload.installPlugin(createjs.Sound);
-	preload.on("error", function() {stage.addChild(new zim.Circle(40, "red"));})
+	preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("complete", app);
 	preload.loadManifest(manifest);
 
 	function app(e) {
 		var but = new zim.Button();
 		zim.centerReg(but, stage);
+		but.y += 200;
 		but.on("click", function(){
 			createjs.Sound.play("test");
 			but.x+=5;
