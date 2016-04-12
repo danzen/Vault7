@@ -64,7 +64,7 @@ frame.on("ready", function() {
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("error", function(e) {
-		var label = new zim.Label(getPhoneGapPath());
+		var label = new zim.Label(getPhoneGapPath(), 20);
 		label.rotation = 90;
 		zim.centerReg(label, stage);
 	});
