@@ -50,22 +50,6 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
 
-	var t = "nope";
-	if (typeof cordova !== 'undefined') {
-		t = "cordova";
-		if (cordova.file) {
-			t = "cordova.file";
-			if (cordova.file.applicationDirectory) {
-				t = cordova.file.applicationDirectory;
-			}
-		}
-	}
-	var label = new zim.Label(t, 20);
-	label.x = stageW - label.width;
-	label.y = stageH/2;
-	stage.addChild(label);
-	stage.update();
-
 	function getPhoneGapPath() {
 	   var path = window.location.pathname;
 	   path = path.substr( path, path.length - 10 );
@@ -73,13 +57,13 @@ frame.on("ready", function() {
 	   // android add 'file://'
 	};
 
-/*
+
 	var manifest = [{id:"test", src:"b01.mp3"}];
-	var preload = new createjs.LoadQueue(true, cordova.file.applicationDirectory + "www/assets/");
+	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("error", function(e) {
-		var label = new zim.Label(cordova.file.applicationDirectory, 20);
+		var label = new zim.Label(e.title, 20);
 		label.x = stageW - label.width;
 		label.y = stageH/2;
 		stage.addChild(label);
@@ -100,7 +84,7 @@ frame.on("ready", function() {
 		});
 		stage.update();
 	};
-	*/
+
 
 	/*
 
