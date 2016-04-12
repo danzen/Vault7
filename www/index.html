@@ -61,6 +61,7 @@ frame.on("ready", function() {
 
 	var manifest = [{src:"back.jpg", id:"test"}];
 	var preload = new createjs.LoadQueue(false, "assets/");
+	preload.installPlugin(createjs.Sound);
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("test"));
 		stage.addChild(underlay);
