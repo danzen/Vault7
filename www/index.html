@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline'; media-src *">
 <meta name="viewport" content="user-scalable=no, minimal-ui, shrink-to-fit=no" />
 <title>Vault 7 - Open Safe Puzzle - Dan Zen</title>
 
@@ -63,7 +64,7 @@ frame.on("ready", function() {
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("scratch"));
 		stage.addChild(underlay);
-		underlay.x = 100;
+		underlay.x = 200;
 		stage.update();
 	});
 	preload.on("error", function(e) {
