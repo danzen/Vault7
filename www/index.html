@@ -59,9 +59,10 @@ frame.on("ready", function() {
 	};
 	*/
 
-	var manifest = [{id:"test", src:"b01wwwwwwwwwww.mp3"}];
+	var manifest = [{id:"test", src:"b01sssssss.mp3"}];
 	var preload = new createjs.LoadQueue(false, "assets/");
 	preload.installPlugin(createjs.Sound);
+	preload.on("error", function() {stage.addChild(new zim.Circle());})
 	preload.on("complete", app);
 	preload.loadManifest(manifest);
 
