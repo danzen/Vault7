@@ -11,6 +11,7 @@
 <script>zon = true; // true for comments from zim code</script>
 <script src="libraries/zim_2.6.1.js"></script>
 <script src="libraries/createjs-2015.11.26.min.js"></script>
+<script src="phonegap.js"></script>
 <!-- <script src="libraries/CordovaAudioPlugin.js"></script> -->
 <!-- or can go to zimjs.com and createjs.com for individual modules -->
 
@@ -60,7 +61,7 @@ frame.on("ready", function() {
 
 	// var manifest = [{id:"test", src:"b01.mp3"}];
 	var manifest = [{id:"test", src:"back.jpg"}];
-	var preload = new createjs.LoadQueue(true, getPhoneGapPath()+"assets/");
+	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
 	preload.on("error", function(e) {
