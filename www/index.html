@@ -59,10 +59,10 @@ frame.on("ready", function() {
 	   // android add 'file://'
 	};
 
-	var manifest = [{src:"back.jpg", id:"scratch"}];
-	var preload = new createjs.LoadQueue(true, "assets/");
+	var manifest = [{src:"back.jpg", id:"test"}];
+	var preload = new createjs.LoadQueue(false, "assets/");
 	preload.on("complete", function() {
-		var underlay = new createjs.Bitmap(preload.getResult("scratch"));
+		var underlay = new createjs.Bitmap(preload.getResult("test"));
 		stage.addChild(underlay);
 		underlay.x = 200;
 		stage.update();
