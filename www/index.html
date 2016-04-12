@@ -11,7 +11,7 @@
 <script>zon = true; // true for comments from zim code</script>
 <script src="libraries/zim_2.6.1.js"></script>
 <script src="libraries/createjs-2015.11.26.min.js"></script>
-<script src="libraries/CordovaAudioPlugin.js"></script>
+<!-- <script src="libraries/CordovaAudioPlugin.js"></script> -->
 <!-- or can go to zimjs.com and createjs.com for individual modules -->
 
 <script src="panel1.js"></script>
@@ -31,7 +31,7 @@
 
 <script>
 
-createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
+// createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
 
 
 // SCALING OPTIONS
@@ -60,7 +60,7 @@ frame.on("ready", function() {
 	*/
 
 	var manifest = [{id:"test", src:"b01.mp3"}];
-	var preload = new createjs.LoadQueue(true, "assets/");
+	var preload = new createjs.LoadQueue(false, "assets/");
 	preload.installPlugin(createjs.Sound);
 	preload.on("complete", app);
 	preload.loadManifest(manifest);
@@ -70,6 +70,8 @@ frame.on("ready", function() {
 		zim.centerReg(but, stage);
 		but.on("click", function(){
 			createjs.Sound.play("test");
+			but.x+=5;
+			stage.update();
 		});
 		stage.update();
 	};
