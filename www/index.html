@@ -59,7 +59,7 @@ frame.on("ready", function() {
 	};
 
 	var manifest = [{src:"back.jpg", id:"scratch"}];
-	var preload = new createjs.LoadQueue(false, "assets/");
+	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("scratch"));
 		stage.addChild(underlay);
