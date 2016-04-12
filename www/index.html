@@ -63,14 +63,18 @@ frame.on("ready", function() {
 	var preload = new createjs.LoadQueue(true, "/assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
-	preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(getPhoneGapPath()), stage));})
+	preload.on("error", function(e) {
+		var label = new zim.Label(getPhoneGapPath());
+		label.rotation = 90;
+		zim.centerReg(label, stage);
+	});
 
 	preload.on("complete", app);
 	preload.loadManifest(manifest);
 
 	function app(e) {
 		var but = new zim.Button();
-		zim.centerReg(but, stage);
+		//zim.centerReg(but, stage);
 		but.y += 200;
 		but.on("click", function(){
 			createjs.Sound.play("test");
