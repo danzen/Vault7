@@ -58,9 +58,25 @@ frame.on("ready", function() {
 	   // android add 'file://'
 	};
 
+	var manifest = [{src:"assets/back.jpg", id:"scratch"}];
+	var preload = new createjs.LoadQueue(false);
+	preload.on("complete", function() {
+		var underlay = new createjs.Bitmap(preload.getResult("scratch"));
+		stage.addChild(underlay);
+		stage.update();
+	});
+	preload.on("error", function(e) {
+		var label = new zim.Label("---" + e.title, 20);
+		label.x = stageW - label.width;
+		label.y = stageH/2;
+		stage.addChild(label);
+		stage.update();
+	});
+	preload.loadManifest(manifest);
 
+	/*
 	// var manifest = [{id:"test", src:"b01.mp3"}];
-	var manifest = [{id:"test", src:"back.jpg"}];
+	var manifest = [{src:"assets/back.jpg", id:"test"}];
 	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
@@ -88,6 +104,7 @@ frame.on("ready", function() {
 		});
 		stage.update();
 	};
+	*/
 
 
 	/*
