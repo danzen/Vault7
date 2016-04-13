@@ -7,7 +7,6 @@
 <title>Vault 7 - Open Safe Puzzle - Dan Zen</title>
 
 <script src="libraries/createjs-2015.11.26.min.js"></script>
-<script src="phonegap.js"></script>
 <!-- <script src="libraries/CordovaAudioPlugin.js"></script> -->
 <!-- or can go to zimjs.com and createjs.com for individual modules -->
 
@@ -36,14 +35,15 @@ window.addEventListener("load", function() {
 	};
 
 
-	var manifest = [{src:"back.jpg", id:"test"}, {src:"b01.mp3", id:"b"}];
-	var preload = new createjs.LoadQueue(false, getPhoneGapPath() + "assets/");
+	var manifest = [{src:"back.jpg", id:"test"}, {src:"backing.mp3", id:"b"}];
+	var preload = new createjs.LoadQueue(false, "assets/");
 	preload.installPlugin(createjs.Sound);
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("test"));
 		stage.addChild(underlay);
-		underlay.x = 500;
+		underlay.x = 300;
 		stage.update();
+		underlay.on("click", function() {createjs.Sound.play("b");});
 	});
 	preload.on("error", function(e) {
 		var label = new createjs.Text(e.title);
