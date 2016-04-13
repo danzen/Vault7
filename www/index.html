@@ -37,7 +37,7 @@ window.addEventListener("load", function() {
 
 
 	var manifest = [{src:"back.jpg", id:"test"}, {src:"b01.mp3", id:"b"}];
-	var preload = new createjs.LoadQueue(true, "assets/");
+	var preload = new createjs.LoadQueue(true, getPhoneGapPath() + "assets/");
 	preload.installPlugin(createjs.Sound);
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("test"));
@@ -60,6 +60,6 @@ window.addEventListener("load", function() {
 </head>
 
 <body>
-<canvas width=640 height=1136 id=myCanvas></canvas>
+<canvas width=320 height=640 id=myCanvas></canvas>
 </body>
 </html>
