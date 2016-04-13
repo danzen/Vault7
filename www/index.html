@@ -6,25 +6,10 @@
 <meta name="viewport" content="user-scalable=no, minimal-ui, shrink-to-fit=no" />
 <title>Vault 7 - Open Safe Puzzle - Dan Zen</title>
 
-<!-- for CreateJS and ZIMjs http://zimjs.com - free to modify - Dan Zen 2015 -->
-<!-- see http://zimjs.com/templates for more templates and meta tags -->
-
-<script>zon = true; // true for comments from zim code</script>
-<script src="libraries/zim_2.6.1.js"></script>
 <script src="libraries/createjs-2015.11.26.min.js"></script>
 <script src="phonegap.js"></script>
 <!-- <script src="libraries/CordovaAudioPlugin.js"></script> -->
 <!-- or can go to zimjs.com and createjs.com for individual modules -->
-
-<script src="panel1.js"></script>
-<script src="panel2.js"></script>
-<script src="panel3.js"></script>
-<script src="panel4.js"></script>
-<script src="panel5.js"></script>
-<script src="panel6.js"></script>
-<script src="panel7.js"></script>
-<script src="panel8.js"></script>
-
 
 <style>
 	body {margin:0px; padding:0px; background-color:#000;}
@@ -33,24 +18,15 @@
 
 <script>
 
-// createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
+window.addEventListener("load", function() {
 
+	var stage = new createjs.Stage("myCanvas");
+	stageW = stage.canvas.width;
+	stageH = stage.canvas.height;
+	stage.setBounds(0,0,stageW,stageH);
 
-// SCALING OPTIONS
-// "none"		sets canvas and stage to dimensions and does not scale if window changes
-// "fit"		sets canvas and stage to dimensions and scales to fit inside window size
-// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
-// "full"		sets canvas and stage to window size (canvas is actually set to screen size)
+	// createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
 
-var scaling = "full"; // full automatically sets width and height to window size
-var width = null;
-var height = null;
-var frame = new zim.Frame(scaling, width, height);
-frame.on("ready", function() {
-
-	var stage = frame.stage;
-	var stageW = frame.width;
-	var stageH = frame.height;
 
 	function getPhoneGapPath() {
 	   var path = window.location.pathname;
@@ -66,346 +42,24 @@ frame.on("ready", function() {
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("test"));
 		stage.addChild(underlay);
-		underlay.x = 200;
+		underlay.x = 500;
 		stage.update();
 	});
 	preload.on("error", function(e) {
-		var label = new zim.Label("---" + e.title, 20);
-		label.x = stageW - label.width;
+		var label = new createjs.Text(e.title);
+		label.x = stageW/2;
 		label.y = stageH/2;
 		stage.addChild(label);
 		stage.update();
 	});
 	preload.loadManifest(manifest);
 
-	/*
-	// var manifest = [{id:"test", src:"b01.mp3"}];
-	var manifest = [{src:"back.jpg", id:"test"}];
-	var preload = new createjs.LoadQueue(true, "assets/");
-	preload.installPlugin(createjs.Sound);
-	// preload.on("error", function(e) {stage.addChild(zim.centerReg(new zim.Label(e.title + "\n" + e.message), stage));})
-	preload.on("error", function(e) {
-		var label = new zim.Label("---" + e.title, 20);
-		label.x = stageW - label.width;
-		label.y = stageH/2;
-		stage.addChild(label);
-		stage.update();
-	});
+});
 
-	preload.on("complete", app);
-	preload.loadManifest(manifest);
-
-	function app(e) {
-		var pic = new createjs.Bitmap(preload.getResult("test"));
-		zim.centerReg(pic, stage);
-		var but = new zim.Button();
-		zim.centerReg(but, stage);
-		but.y += 200;
-		but.on("click", function(){
-			// createjs.Sound.play("test");
-			but.x+=5;
-			stage.update();
-		});
-		stage.update();
-	};
-	*/
-
-
-	/*
-
-	zim.OPTIMIZE = true;
-	zim.Ticker.update = true; // will update stage for anything in ticker queue
-
-	frame.loadAssets(["back.jpg", "b01.mp3", "b02.mp3", "b03.mp3", "b04.mp3", "b05.mp3", "b06.mp3", "b07.mp3", "end.png"], "assets/");
-	frame.completeEvent = frame.on("complete", app);
-
-	function app() {
-
-		var image = frame.asset("back.jpg");
-		image.alpha = .4;
-		zim.scaleTo(image, stage, 100, 100, "biggest");
-		stage.addChild(image);
-
-		//var safe = new createjs.Shape();
-		//stage.addChildAt(safe, 0);
-
-		var middle = new createjs.Container();
-		stage.addChild(middle);
-
-		var panel = panels.makePanel1(frame);
-		middle.addChild(panel);
-		panel.on("pass", nextLevel);
-		frame.firstCode = panel.dialKey+panel.sliderKey+panel.padKey;
-
-
-		//////////////////  INDICATOR  ///////////////////////
-
-		var backingColor = "rgba(0,0,0,.5)";
-		var indicatorConfig = {
-			width: panel.getBounds().width,
-			height: panel.getBounds().height*.06,
-			num: 7,
-			color: frame.orange,
-			offColor: "rgba(0,0,0,.3)",
-			borderColor: -1,
-			backingColor: backingColor,
-			scale: .88,
-			lightScale: 1,
-			fill: true,
-			type: "dot",
-			press: false,
-			shadowColor: -1,
-			shadowBlur: 5
-		}
-		var indicator = new zim.Indicator(indicatorConfig);
-		indicator.selectedIndex = -1;
-		zim.expand(indicator.lights[4]);
-		indicator.on("mousedown", function(e) {if (indicator.selectedIndex == 3 && e.target.znum == 4) {panel.test();}});
-		middle.addChild(indicator);
-
-
-		//////////////////  TRIM  ///////////////////////
-
-		var trim = new zim.Rectangle(indicator.width, indicator.width*.025, backingColor);
-		middle.addChild(trim);
-
-
-		//////////////////  HINT  ///////////////////////
-
-		var hintBut = new zim.Button({
-			label: "HINT",
-			corner: 0,
-			color:frame.orange,
-			width:120,
-			height:50,
-			shadowColor:-1,
-			borderColor:frame.dark
-		});
-		zim.expand(hintBut);
-		var hint = hintBut;
-		hints = ["SAME BUT DIFFERENT", "PAST START", "SAYS ME", "HEAD PHONES", "WRONG DOTS", "CLOSE OLD", "MORSE CHAR", "SHARE WITH FRIENDS"];
-		var hintText = zim.Label(hints[0], 24, null, frame.dark);
-		hintText.originalWidth = hintText.width;
-
-		hintBut.on("mousedown", function() {
-			stage.removeChild(hintBut);
-			stage.addChild(hintText);
-			hint = hintText;
-			stage.update();
-		});
-
-
-		//////////////////  ZIM  ///////////////////////
-
-		var circles = frame.makeCircles(stageW/8);
-		circles.cursor = "pointer";
-		circles.on("mousedown", function(){zgo("http://zimjs.com", "_blank")});
-
-
-		//////////////////  LOGO  ///////////////////////
-
-		var logoBlur = new createjs.Shape();
-		logoBlur.graphics.f("#000000").s().p("AkdEKQg5g+AAh2IAAmOIC7AAIAAGOQAAA5AoAAQAoAAAAg5IAAmOIC4AAIAAGUQAABshABAQg+BAhqAAQhqAAg4g+gA2TiHIiBAAIAAi0IEPABIBeDYIACAGIBfjeIDQAAIkxJ6gASgE5ICOm9IjAAAIAAi0IGnAAIi2JxgAKdE5IAAm9IiOAAIAAi0IHXAAIAAC0IiOAAIAAG9gADcE5IAAi0IAAAAIAAm9IC6AAIAAG9ICPAAIAAC0gApqE5IAAiVIhUAAIAACVIi6AAIAAmNQAAhzA/hAQAvgvBKgNQAagEAeAAQAfAAAaAEQBEAMAmAqQA1A6AAB5IAAGTgAq+hOIAABOIBUAAIAAhOQAAgkgJgPQgJgOgWAAQgsAAAABBg");
-		stage.addChild(logoBlur);
-		logoBlur.alpha = .4;
-		logoBlur.setBounds(-156,-32,312,64);
-
-		var logo = logoBlur.clone();
-		stage.addChild(logo);
-		logo.alpha = .45;
-		logo.shadow = new createjs.Shadow("rgba(0,0,0,.2)", 2, 2, 2);
-		logo.setBounds(-156,-32,312,64);
-
-
-		//////////////////  SHUTTER  ///////////////////////
-
-		var shutter = new zim.Rectangle(panel.width,panel.height,frame.dark);
-		var shutterX; // set these in resize
-		var shutterY;
-
-
-		//////////////////  SCALING  ///////////////////////
-
-		scaleSafe();
-
-		function scaleSafe() {
-			zim.scaleTo(image, stage, 100, 100, "biggest");
-			zim.scale(hintBut, ((frame.orientation=="vertical")?stageW:stageH)/hintBut.width*.2);
-			zim.scale(hintText, ((frame.orientation=="vertical")?stageW:stageH)/hintText.originalWidth*.6);
-
-			//var g = safe.graphics;
-			//var corner = (frame.orientation == "vertical") ? stageH*.1 : stageW*.1;
-			//g.c().f("#fff").rr(0,0,stageW,stageH,corner);
-			//image.mask = safe;
-			zim.fit(middle, 0, 0, stageW, stageH);
-			var margin = Math.min(stageW, stageH)*.05;
-			if (frame.orientation == "vertical") {
-				logo.rotation = 0;
-				logoBlur.rotation = 0;
-				var space = (stageH-middle.getBounds().height*middle.scaleX)/2;
-				if (space > 10) {
-					stage.addChild(logo, logoBlur, hint, circles);
-					zim.scale(logoBlur, space/logoBlur.getBounds().height*.42);
-					logoBlur.y = space/2*1.08;
-					logoBlur.x = stageW/2*.98;
-					var blurFilter = new createjs.BlurFilter(70,0,.4);
-					logoBlur.filters = [blurFilter];
-					var bounds = logoBlur.getBounds();
-					logoBlur.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
-
-					zim.scale(logo, logoBlur.scaleX);
-					logo.y = logoBlur.y;
-					logo.x = logoBlur.x;
-					bounds = logo.getBounds();
-					logo.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
-
-					hintBut.rotation = hintText.rotation = 0;
-					hintBut.x = hintText.x = stageW*.1;
-					hintBut.y = hintText.y = stageH - (space + hintBut.height*hintBut.scaleX)/2;
-					hintText.y += 6;
-
-					zim.scale(circles, Math.min(space/circles.height*.8, stageW/circles.width*.17));
-					circles.x = stageW*.85;
-					circles.y = stageH-space/2;
-
-				} else {
-					stage.removeChild(logo, logoBlur, hint, circles);
-				}
-
-				indicator.rotation = 0;
-				indicator.x = 0;
-				panel.x = 0;
-				panel.y = indicator.height;
-				trim.rotation = 0;
-				trim.x = 0;
-				trim.y = indicator.height + indicator.width;
-
-			} else {
-				logo.rotation = -90;
-				logoBlur.rotation = -90;
-				var space = (stageW-middle.getBounds().width*middle.scaleX)/2;
-				if (space > 10) {
-					stage.addChild(logo, logoBlur, hint, circles);
-					zim.scale(logoBlur, space/logoBlur.getBounds().height*.42);
-					logoBlur.x = space/2*1.08;
-					logoBlur.y = stageH/2*.98;
-					var blurFilter = new createjs.BlurFilter(70,0,.5);
-					logoBlur.filters = [blurFilter];
-					var bounds = logoBlur.getBounds();
-					logoBlur.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
-
-					zim.scale(logo, logoBlur.scaleX);
-					logo.y = logoBlur.y;
-					logo.x = logoBlur.x;
-					bounds = logo.getBounds();
-					logo.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
-
-					hintBut.rotation = hintText.rotation = -90;
-					hintBut.x = hintText.x = stageW - (space + hintBut.height*hintBut.scaleX)/2;
-					hintText.x += 6;
-					hintBut.y = hintText.y = stageH*.9;
-
-					zim.scale(circles, Math.min(space/circles.height*.8, stageH/circles.width*.17));
-					circles.x = stageW-space/2;
-					circles.y = stageH*.15;
-
-				} else {
-					stage.removeChild(logo, logoBlur, hint, circles);
-				}
-
-				indicator.rotation = 90;
-				indicator.x = indicator.height;
-				indicator.y = 0;
-				panel.x = indicator.x;
-				panel.y = 0;
-				trim.rotation = 90;
-				trim.x = indicator.height + indicator.width + indicator.width*.025;
-				trim.y = 0;
-			}
-
-
-
-			zim.scale(shutter, middle.scaleX);
-			stage.removeChild(shutter);
-			var p = middle.localToGlobal(panel.x, panel.y)
-			shutterX = shutter.x = p.x;
-			shutterY = shutter.y = p.y;
-
-		}
-
-
-		//////////////////  NEXT LEVEL  ///////////////////////
-
-		function nextLevel() {
-
-			stage.addChild(shutter);
-
-			shutter.x = (frame.orientation == "vertical") ? panel.width : shutterX;
-			shutter.y = (frame.orientation == "vertical") ? shutterY : -panel.height;
-
-			middle.cache(0,0,middle.getBounds().width,middle.getBounds().height);
-
-			// play sound
-
-			// animate shutter and swap panels
-			zim.move({
-				target:shutter,
-				x:shutterX, y:shutterY,
-				props:{
-					rewind:true,
-					rewindWait:500,
-					rewindCall:function() {
-						zog("go next level");
-
-						// remove old panel
-						middle.removeChild(panel);
-						indicator.selectedIndex ++;
-						panel.off("pass", nextLevel);
-						panel.dispose();
-						middle.uncache();
-
-						stage.removeChild(hintText);
-						stage.addChild(hintBut);
-						hintText.text = hints[indicator.selectedIndex+1];
-
-						// add new panel
-						panel = panels["makePanel"+(indicator.selectedIndex+2)](frame);
-						middle.addChild(panel);
-						panel.on("pass", nextLevel);
-						if (frame.orientation == "vertical") {
-							panel.x = 0;
-							panel.y = indicator.height;
-						} else {
-							panel.x = indicator.x;
-							panel.y = 0;
-						}
-						middle.cache(0,0,middle.getBounds().width,middle.getBounds().height);
-					}
-				},
-				time:1000,
-				call:function(){middle.uncache(); stage.removeChild(shutter)}
-			});
-		}
-
-
-		// put resizing code in here (scaling="full" only)
-		frame.on("resize", resize);
-		function resize(e) {
-			stageW = frame.width;
-			stageH = frame.height;
-			scaleSafe();
-			stage.update();
-		}
-		resize(); // want to resize after loading
-
-	} // end of app
-	*/
-
-}); // end of ready
 </script>
 </head>
 
 <body>
-<!-- canvas with id="myCanvas" is made by zim Frame -->
+<canvas width=640 height=1136 id=myCanvas></canvas>
 </body>
 </html>
