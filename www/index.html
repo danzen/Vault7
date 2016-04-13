@@ -37,7 +37,7 @@ window.addEventListener("load", function() {
 
 
 	var manifest = [{src:"back.jpg", id:"test"}, {src:"b01.mp3", id:"b"}];
-	var preload = new createjs.LoadQueue(false, "assets/");
+	var preload = new createjs.LoadQueue(true, "assets/");
 	preload.installPlugin(createjs.Sound);
 	preload.on("complete", function() {
 		var underlay = new createjs.Bitmap(preload.getResult("test"));
