@@ -35,11 +35,10 @@ window.addEventListener("load", function() {
 	};
 
 	createjs.Sound.on("fileload", loadHandler);
-	createjs.Sound.registerSound("assets/backing.mp3", "sound");
+	createjs.Sound.registerSound("cdvfile://localhost/bundle/www/assets/backing.mp3", "sound");
 	function loadHandler(event) {
-		console.log("here");
 		var rect = new createjs.Shape();
-		rect.graphics.f("black").dr(0,0,100,100);
+		rect.graphics.f("red").dr(0,0,100,100);
 		stage.addChild(rect);
 		rect.on("click", function() {
 			var instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
