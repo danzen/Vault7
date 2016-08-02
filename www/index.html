@@ -20,12 +20,12 @@
 window.addEventListener("load", function() {
 
 	var stage = new createjs.Stage("myCanvas");
+    stage.enableMouseOver();
 	stageW = stage.canvas.width;
 	stageH = stage.canvas.height;
 	stage.setBounds(0,0,stageW,stageH);
 
 	// createjs.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
-
 
 	function getPhoneGapPath() {
 	   var path = window.location.pathname;
@@ -35,7 +35,8 @@ window.addEventListener("load", function() {
 	};
 
 	createjs.Sound.on("fileload", loadHandler);
-	createjs.Sound.registerSound("cdvfile://localhost/bundle/www/assets/backing.mp3", "sound");
+	// createjs.Sound.registerSound("cdvfile://localhost/bundle/www/assets/backing.mp3", "sound");
+    createjs.Sound.registerSound("assets/backing.mp3", "sound");
 	function loadHandler(event) {
 		var rect = new createjs.Shape();
 		rect.graphics.f("red").dr(0,0,100,100);
@@ -43,8 +44,16 @@ window.addEventListener("load", function() {
 		rect.on("click", function() {
 			var instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
 		});
+        rect.cursor = "pointer";
 		stage.update();
 	}
+
+    var circle = new createjs.Shape();
+    circle.graphics.f("blue").dc(0,0,60);
+    stage.addChild(circle);
+    circle.x = 100;
+    circle.y = 300;
+    stage.update();
 
 /*
 	var manifest = [{src:"back.jpg", id:"test"}, {src:"backing.mp3", id:"b"}];
