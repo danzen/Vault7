@@ -41,7 +41,7 @@
 	<access origin="*" browserOnly="true"/>
 	<!--<gap:plugin name="org.apache.cordova.inappbrowser" />-->
     <!--<gap:plugin name="org.apache.cordova.file-transfer" />-->
-    <!--<gap:plugin name="org.apache.cordova.media" />-->
+    <gap:plugin name="org.apache.cordova.media" />
     <!--<gap:plugin name="org.apache.cordova.media" source="pgb" spec="0.2.16" />-->
 
 
