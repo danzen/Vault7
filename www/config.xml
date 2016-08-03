@@ -38,7 +38,7 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
     <!-- Plugins -->
-    
+
     <plugin name="cordova-plugin-whitelist" spec="1.2.2" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -48,11 +48,8 @@
     <allow-intent href="geo:*" />
 
 	<access origin="*" browserOnly="true"/>
-	<gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.file-transfer" />
-    <gap:plugin name="org.apache.cordova.media" />
-    <!--<gap:plugin name="org.apache.cordova.media" source="pgb" spec="0.2.16" />-->
-
+    <plugin name="cordova-plugin-file-transfer" />
+    <plugin name="cordova-plugin-media" />
 
     <!-- Define app icon for each platform. -->
 	<!-- see 'Make Mobile Icons.jsx' (GitHub root directory) for auto creation in photoshop -->
