@@ -48,6 +48,7 @@
     <allow-intent href="geo:*" />
 
 	<access origin="*" browserOnly="true"/>
+    <plugin name="cordova-plugin-inappbrowser" />
     <plugin name="cordova-plugin-file-transfer" />
     <plugin name="cordova-plugin-media" />
 
