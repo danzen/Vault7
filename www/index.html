@@ -35,7 +35,6 @@ window.addEventListener("load", function() {
 	};
 
 	createjs.Sound.on("fileload", loadHandler);
-	// createjs.Sound.registerSound("cdvfile://localhost/bundle/www/assets/backing.mp3", "sound");
     createjs.Sound.registerSound("assets/backing.mp3", "sound");
 	function loadHandler(event) {
 		var rect = new createjs.Shape();
